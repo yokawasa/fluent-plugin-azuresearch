@@ -13,7 +13,7 @@ module Fluent
 
     config_param :endpoint, :string,
                  :desc => "Azure Search Endpoint URL"
-    config_param :api_key, :string,
+    config_param :api_key, :string, :secret => true,
                  :desc => "Azure Search API key"
     config_param :search_index, :string,
                  :desc => "Azure Search Index name to insert records"
