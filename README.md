@@ -19,7 +19,7 @@ To use Microsoft Azure Search, you must create an Azure Search service in the Az
 ### Fluentd - fluent.conf
 
     <match azuresearch.*>
-        type azuresearch
+        @type azuresearch
         endpoint   https://AZURE_SEARCH_ACCOUNT.search.windows.net
         api_key    AZURE_SEARCH_API_KEY
         search_index  messages
@@ -41,7 +41,7 @@ Suppose you have the following fluent.conf and azure search index schema:
 <u>fluent.conf</u>
 
     <match azuresearch.*>
-        type azuresearch
+        @type azuresearch
         endpoint   https://yoichidemo.search.windows.net
         api_key    2XX3D2456052A9AD21E54CB03C3ABF6A(dummy)
         search_index  messages
@@ -85,7 +85,7 @@ Suppose you have the following fluent.conf and azure search index schema:
 <u>fluent.conf</u>
 
     <match azuresearch.*>
-        type azuresearch
+        @type azuresearch
         endpoint   https://yoichidemo.search.windows.net
         api_key    2XX3D2456052A9AD21E54CB03C3ABF6A(dummy)
         search_index  messages
@@ -128,7 +128,7 @@ The plugin will write event stream out to Azure Ssearch like this:
 <u>fluent.conf</u>
 
     <match azuresearch.*>
-        type azuresearch
+        @type azuresearch
         endpoint   https://yoichidemo.search.windows.net
         api_key    2XX3D2456052A9AD21E54CB03C3ABF6A(dummy)
         search_index  messages
@@ -190,7 +190,7 @@ The plugin will write event stream out to Azure Ssearch like this:
 Please don't forget that you need forward input configuration to receive the message from fluent-cat
 
     <source>
-        type forward
+        @type forward
     </source>
 
 
