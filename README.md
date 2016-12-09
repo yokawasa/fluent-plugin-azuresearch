@@ -197,6 +197,14 @@ Please don't forget that you need forward input configuration to receive the mes
 ## TODOs
  * Input validation for Azure Search - check total size of columns to add 
 
+## Change log
+* [Changelog](ChangeLog.md)
+
+## Links
+
+* http://yokawasa.github.io/fluent-plugin-azuresearch
+* https://rubygems.org/gems/fluent-plugin-azuresearch
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/yokawasa/fluent-plugin-azuresearch.
