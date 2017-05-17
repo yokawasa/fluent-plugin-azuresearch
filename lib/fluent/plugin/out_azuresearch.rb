@@ -4,6 +4,10 @@ module Fluent
   class AzureSearchOutput < BufferedOutput
     Plugin.register_output('azuresearch', self)
 
+    unless method_defined?(:log)
+        define_method('log') { $log }
+    end
+
     def initialize
         super
         require 'msgpack'
@@ -79,7 +83,7 @@ DESC
             res = @client.add_documents(@search_index, documents)
             puts res
         rescue Exception => ex
-            $log.fatal "UnknownError: '#{ex}'"
+            log.fatal "UnknownError: '#{ex}'"
                           + ", data=>" + (documents.to_json).to_s
         end
     end
