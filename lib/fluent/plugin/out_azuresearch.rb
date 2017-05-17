@@ -13,14 +13,6 @@ module Fluent::Plugin
 
     DEFAULT_BUFFER_TYPE = "memory"
 
-    unless method_defined?(:log)
-        define_method('log') { $log }
-    end
-
-    def initialize
-        super
-    end
-
     config_param :endpoint, :string,
                  :desc => "Azure Search Endpoint URL"
     config_param :api_key, :string, :secret => true,
