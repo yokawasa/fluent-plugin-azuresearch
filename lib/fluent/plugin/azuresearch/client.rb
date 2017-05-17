@@ -1,4 +1,4 @@
-module Fluent
+module Fluent::Plugin
   module AzureSearch
     class Client
 

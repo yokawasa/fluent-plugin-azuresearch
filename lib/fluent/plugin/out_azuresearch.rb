@@ -58,7 +58,7 @@ DESC
     def start
         super
         # start
-        @client=Fluent::AzureSearch::Client::new( @endpoint, @api_key )
+        @client=Fluent::Plugin::AzureSearch::Client::new( @endpoint, @api_key )
     end
 
     def shutdown
