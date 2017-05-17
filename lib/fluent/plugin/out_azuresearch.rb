@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 require 'fluent/plugin/output'
+require 'msgpack'
+require 'time'
+require 'fluent/plugin/azuresearch/client'
 
 module Fluent::Plugin
   class AzureSearchOutput < Output
@@ -16,9 +19,6 @@ module Fluent::Plugin
 
     def initialize
         super
-        require 'msgpack'
-        require 'time'
-        require 'fluent/plugin/azuresearch/client'
     end
 
     config_param :endpoint, :string,
