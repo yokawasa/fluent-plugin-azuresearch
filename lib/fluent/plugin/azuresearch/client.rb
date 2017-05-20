@@ -16,8 +16,8 @@ module Fluent::Plugin
         end 
 
         def add_documents(index_name, documents, merge=true)
-            raise ConfigError, 'no index_name' if index_name.empty?
-            raise ConfigError, 'no documents' if documents.empty?
+            raise Fluent::ConfigError, 'no index_name' if index_name.empty?
+            raise Fluent::ConfigError, 'no documents' if documents.empty?
             action = merge ? 'mergeOrUpload' : 'upload' 
             for document in documents
                 document['@search.action'] = action
