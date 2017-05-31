@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 
-module Fluent
-  class AzureSearchOutput < BufferedOutput
-    Plugin.register_output('azuresearch', self)
+require 'fluent/plugin/output'
+require 'msgpack'
+require 'time'
+require 'fluent/plugin/azuresearch/client'
 
-    unless method_defined?(:log)
-        define_method('log') { $log }
-    end
+module Fluent::Plugin
+  class AzureSearchOutput < Output
+    Fluent::Plugin.register_output('azuresearch', self)
 
-    def initialize
-        super
-        require 'msgpack'
-        require 'time'
-        require 'fluent/plugin/azuresearch/client'
-    end
+    helpers :compat_parameters
+
+    DEFAULT_BUFFER_TYPE = "memory"
 
     config_param :endpoint, :string,
                  :desc => "Azure Search Endpoint URL"
@@ -30,23 +28,29 @@ ${time} is placeholder for Time.at(time).strftime("%Y-%m-%dT%H:%M:%SZ"),
 and ${tag} is placeholder for tag
 DESC
 
+    config_section :buffer do
+        config_set_default :@type, DEFAULT_BUFFER_TYPE
+        config_set_default :chunk_keys, ['tag']
+    end
+
     def configure(conf)
+        compat_parameters_convert(conf, :buffer)
         super
-        raise ConfigError, 'no endpoint' if @endpoint.empty?
-        raise ConfigError, 'no api_key' if @api_key.empty?
-        raise ConfigError, 'no search_index' if @search_index.empty?
-        raise ConfigError, 'no column_names' if @column_names.empty?
-       
+        raise Fluent::ConfigError, 'no endpoint' if @endpoint.empty?
+        raise Fluent::ConfigError, 'no api_key' if @api_key.empty?
+        raise Fluent::ConfigError, 'no search_index' if @search_index.empty?
+        raise Fluent::ConfigError, 'no column_names' if @column_names.empty?
+
         @column_names = @column_names.split(',')
         @key_names = @key_names.nil? ? @column_names : @key_names.split(',')
-        raise ConfigError, 'NOT match keys number: column_names and key_names' \
+        raise Fluent::ConfigError, 'NOT match keys number: column_names and key_names' \
                 if @key_names.length != @column_names.length
     end
 
     def start
         super
         # start
-        @client=Fluent::AzureSearch::Client::new( @endpoint, @api_key )
+        @client=Fluent::Plugin::AzureSearch::Client::new( @endpoint, @api_key )
     end
 
     def shutdown
@@ -67,6 +71,14 @@ DESC
             values << value
         end
         [tag, time, values].to_msgpack
+    end
+
+    def formatted_to_msgpack_binary?
+        true
+    end
+
+    def multi_workers_ready?
+        true
     end
 
     def write(chunk)
