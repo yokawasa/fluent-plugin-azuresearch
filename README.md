@@ -20,6 +20,7 @@ To use Microsoft Azure Search, you must create an Azure Search service in the Az
 
     <match azuresearch.*>
         @type azuresearch
+        @log_level info
         endpoint   https://AZURE_SEARCH_ACCOUNT.search.windows.net
         api_key    AZURE_SEARCH_API_KEY
         search_index  messages
@@ -32,6 +33,8 @@ To use Microsoft Azure Search, you must create an Azure Search service in the Az
  * **search\_index (required)** - Azure Search Index name to insert records
  * **column\_names (required)** - Column names in a target Azure search index. Each column needs to be separated by a comma.
  * **key\_names (optional)** - Default:nil. Key names in incomming record to insert. Each key needs to be separated by a comma. ${time} is placeholder for Time.at(time).strftime("%Y-%m-%dT%H:%M:%SZ"), and ${tag} is placeholder for tag. By default, **key\_names** is as same as **column\_names**
+
+[note] @log_level is a fluentd built-in parameter (optional) that controls verbosity of logging: fatal|error|warn|info|debug|trace (See also [Logging of Fluentd](http://docs.fluentd.org/articles/logging#log-level)) 
 
 ## Sample Configurations
 ### Case1 - column_names is as same as key_names 
