@@ -2,6 +2,13 @@
 
 fluent-plugin-azuresearch is a fluent plugin to output to Azure Search
 
+## Requirements
+
+| fluent-plugin-azuresearch | fluentd | ruby |
+|------------------------|---------|------|
+| >= 0.2.0 | >= v0.14.15 | >= 2.1 |
+|  < 0.2.0 | >= v0.12.0 | >= 1.9 |
+
 ## Installation
 
     $ gem install fluent-plugin-azuresearch
